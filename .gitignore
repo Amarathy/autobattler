@@ -1,0 +1,22 @@
+# Godot imports (auto-generated, can always be re-created)
+.import/
+*.import
+
+# Exported builds
+export/
+*.exe
+*.pck
+*.apk
+*.zip
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor settings
+.vscode/
+.idea/
+
+# Godot 4 cache files
+*.tmp
