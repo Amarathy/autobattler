@@ -15,8 +15,8 @@ class_name Board
 ## -----------------------------
 ## Signals
 ## -----------------------------
-
-
+signal unit_placed(unit: Unit, tile: Tile)
+signal unit_removed(unit: Unit)
 
 ## -----------------------------
 ## Constants
@@ -37,6 +37,7 @@ class_name Board
 ## -----------------------------
 var tiles: Array = []
 var start_offset: Vector2
+var highlighted_tile: Tile = null
 
 ## -----------------------------
 ## Built-in callbacks
@@ -53,15 +54,26 @@ func _process(_delta: float) -> void:
 ## -----------------------------
 ## Public methods
 ## -----------------------------
-func try_place_unit(unit: Unit) -> void:
-	var placing_tile = _get_tile_at_mouse()
-	var current_tile = unit.get_current_tile()
-	
-	if _is_legal_move(placing_tile, unit):
-		_move_unit(unit, placing_tile, current_tile)
+func try_place_unit(unit: Unit) -> bool:
+	if highlighted_tile and _is_legal_move(highlighted_tile, unit):
+		var current_tile = unit.get_current_tile()
+		_move_unit(unit, highlighted_tile, current_tile)
+		unit_placed.emit(unit, highlighted_tile)
+		return true
 	else:
-		unit.return_to_original_position()
+		remove_unit(unit)
+		#unit.return_to_original_position()
+		return false
 
+func remove_unit(unit: Unit) -> void:
+	if unit.current_tile:
+		unit.current_tile.set_tile_to_unoccupied()
+		unit.current_tile = null
+	unit.is_on_board = false
+	unit_removed.emit(unit)
+
+func clear_highlighted_tile() -> void:
+	highlighted_tile = null
 
 ## -----------------------------
 ## Private helpers
@@ -95,15 +107,6 @@ func _create_grid() -> void:
 			add_child(tile)
 			tiles[x].append(tile)
 
-func _get_tile_at_mouse() -> Tile:
-	var mouse_pos = get_global_mouse_position()
-	var grid_x = int((mouse_pos.x - start_offset.x + tile_spacing.x / 2) / tile_spacing.x)
-	var grid_y = int((mouse_pos.y - start_offset.y + tile_spacing.y / 2) / tile_spacing.y)
-
-	if grid_x >= 0 and grid_x < grid_size.x and grid_y >= 0 and grid_y < grid_size.y:
-		return tiles[grid_x][grid_y] as Tile
-	return null
-
 func _is_legal_move(tile: Tile, _unit: Unit) -> bool:
 	if tile:
 		return tile.occupying_unit == null
@@ -115,3 +118,4 @@ func _move_unit(unit: Unit, placing_tile: Tile, current_tile: Tile) -> void:
 			current_tile.set_tile_to_unoccupied() 
 	unit.current_tile = placing_tile
 	unit.global_position = placing_tile.global_position
+	unit.is_on_board = true

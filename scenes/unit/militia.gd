@@ -6,8 +6,8 @@
 ## Author: M Foster
 ## ================================================================
 
-extends Node
-#class_name Class
+extends Unit
+class_name Militia
 
 
 ## -----------------------------
@@ -36,12 +36,11 @@ extends Node
 ## Built-in callbacks
 ## -----------------------------
 func _ready() -> void:
-	_init_signals()
-	_init_defaults()
+	super._ready()
 
 
-func _process(_delta: float) -> void:
-	pass
+func _process(delta: float) -> void:
+	super._process(delta)
 
 
 ## -----------------------------
@@ -57,4 +56,15 @@ func _init_signals() -> void:
 
 
 func _init_defaults() -> void:
-	pass
+	_set_init_stats()
+	_set_init_name()
+
+func _set_init_stats() -> void:
+	attack = 2
+	armour = 0
+	health = 8
+	attack_range = 1
+	attack_rate = 1.8
+
+func _set_init_name() -> void:
+	unit_name = "Militia"

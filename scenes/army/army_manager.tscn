@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4ntxutqy2skx"]
+
+[ext_resource type="Script" uid="uid://x6bgjfiprb4o" path="res://scenes/army/army_manager.gd" id="1_n5qde"]
+
+[node name="ArmyManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n5qde")
+
+[node name="ButtonHBox" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CreateArmy" type="Button" parent="ButtonHBox"]
+layout_mode = 2
+text = "Create Army"
+
+[node name="AddMilitia" type="Button" parent="ButtonHBox"]
+layout_mode = 2
+text = "Add Militia"
+
+[node name="Bench" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 50.0
+offset_top = 100.0
+offset_right = 90.0
+offset_bottom = 140.0

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://m8acdd454p6s"]
+
+[ext_resource type="Script" uid="uid://cii0v0nu10dxs" path="res://scenes/unit/militia.gd" id="2_7e36w"]
+[ext_resource type="Texture2D" uid="uid://36b28skkw17j" path="res://icon.svg" id="2_t8exx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ap23"]
+size = Vector2(50, 50)
+
+[node name="Militia" type="Node2D"]
+z_index = 1
+script = ExtResource("2_7e36w")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+modulate = Color(0.293025, 0.681112, 3.85046e-07, 1)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_t8exx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8ap23")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
