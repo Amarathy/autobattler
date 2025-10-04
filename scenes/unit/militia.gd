@@ -52,15 +52,17 @@ func _process(delta: float) -> void:
 ## Private helpers
 ## -----------------------------
 func _init_signals() -> void:
+	super._init_signals()
 	pass
 
 
 func _init_defaults() -> void:
+	super._init_defaults()
 	_set_init_stats()
 	_set_init_name()
 
 func _set_init_stats() -> void:
-	attack = 2
+	attack_damage = 2
 	armour = 0
 	health = 8
 	attack_range = 1

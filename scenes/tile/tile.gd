@@ -37,7 +37,7 @@ class_name Tile
 ## -----------------------------
 ## Member variables
 ## -----------------------------
-var occupied: bool = false
+var occupied: bool
 var occupying_unit: Unit = null
 var highlighted: bool = false
 var board: Board
@@ -76,6 +76,9 @@ func set_tile_to_occupied(unit: Unit) -> void:
 func set_tile_to_unoccupied() -> void:
 	occupying_unit = null
 	occupied = false
+
+func is_occupied() -> bool:
+	return occupied
 
 ## -----------------------------
 ## Private helpers

@@ -1,14 +1,7 @@
-res://scenes/main/MainMenu.tscn
-res://scripts/global/unit_factory.gd
 res://scenes/board/Board.tscn
+res://scripts/global/unit_factory.gd
 res://scenes/tile/Tile.tscn
 res://scenes/unit/Unit.tscn
 res://scenes/army/army.tscn
-res://scenes/unit/Militia.tscn
 res://scenes/army/army_manager.tscn
-res://scenes/army/army_manager.gd
-res://scenes/unit/unit.gd
-res://scenes/army/army.gd
-res://scenes/board/board.gd
-res://scenes/unit/militia.gd
-res://scenes/tile/tile.gd
+res://scenes/unit/Militia.tscn

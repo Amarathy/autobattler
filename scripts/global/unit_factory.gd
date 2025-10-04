@@ -44,10 +44,10 @@ func _ready() -> void:
 func register_unit_type(unit_name: String, scene: PackedScene) -> void:
 	unit_scenes[unit_name] = scene
 
-func create_unit(unit_name: String) -> Unit:
+func create_unit(unit_name: String, allegiance: Defs.Allegiance = Defs.Allegiance.UNIT_PLAYER) -> Unit:
 	if unit_scenes.has(unit_name):
 		var instance = unit_scenes[unit_name].instantiate()
-		#instance.init_unit() # Instance not added to scene tree so this calls _ready
+		instance.allegiance = allegiance
 		return instance
 	push_warning("UnitFactory: Unit type '%s' not registered" % unit_name)
 	return null

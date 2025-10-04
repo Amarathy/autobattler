@@ -24,6 +24,10 @@ text = "Create Army"
 layout_mode = 2
 text = "Add Militia"
 
+[node name="AddEnemyMilitia" type="Button" parent="ButtonHBox"]
+layout_mode = 2
+text = "Add Enemy Militia"
+
 [node name="Bench" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 50.0

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1g7ggtpm4neg"]
+[gd_scene load_steps=5 format=3 uid="uid://b1g7ggtpm4neg"]
 
 [ext_resource type="Script" uid="uid://bgqcbtcmyakge" path="res://scenes/board/board.gd" id="1_6puts"]
 [ext_resource type="PackedScene" uid="uid://cbjka3nevj4ec" path="res://scenes/tile/Tile.tscn" id="2_4vko3"]
 [ext_resource type="PackedScene" uid="uid://d4ntxutqy2skx" path="res://scenes/army/army_manager.tscn" id="3_kmmm1"]
+[ext_resource type="Script" uid="uid://7xrxshp0bjl4" path="res://scenes/board/battle_manager.gd" id="4_wjfn2"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_6puts")
@@ -23,10 +24,37 @@ color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="Board" type="CanvasLayer" parent="."]
 
+[node name="TileContainer" type="Node2D" parent="."]
+
 [node name="ArmyManager" parent="." instance=ExtResource("3_kmmm1")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("4_wjfn2")
+
+[node name="BattleState" type="Label" parent="BattleManager"]
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.05
+anchor_right = 0.55
+anchor_bottom = 0.1
+grow_horizontal = 2
+horizontal_alignment = 1
+
+[node name="StartBattle" type="Button" parent="BattleManager"]
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.1
+anchor_right = 0.55
+anchor_bottom = 0.1
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Start Battle"
+
 [connection signal="unit_placed" from="." to="ArmyManager" method="_on_board_unit_placed"]
 [connection signal="unit_removed" from="." to="ArmyManager" method="_on_board_unit_removed"]
+[connection signal="battle_state_changed" from="BattleManager" to="." method="_on_battle_manager_battle_state_changed"]
+[connection signal="battle_state_changed" from="BattleManager" to="ArmyManager" method="_on_battle_manager_battle_state_changed"]
+[connection signal="pressed" from="BattleManager/StartBattle" to="BattleManager" method="_on_start_battle_pressed"]

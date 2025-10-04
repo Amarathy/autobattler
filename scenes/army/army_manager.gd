@@ -35,6 +35,7 @@ var army: Army = null
 
 @onready var create_army_button: Button = $ButtonHBox/CreateArmy
 @onready var add_militia_button: Button = $ButtonHBox/AddMilitia
+@onready var add_enemy_militia_button: Button = $ButtonHBox/AddEnemyMilitia
 @onready var bench: Control = $Bench
 
 ## -----------------------------
@@ -60,6 +61,7 @@ func _process(_delta: float) -> void:
 func _init_signals() -> void:
 	create_army_button.pressed.connect(_on_create_army_pressed)
 	add_militia_button.pressed.connect(_on_add_militia_pressed)
+	add_enemy_militia_button.pressed.connect(_on_add_enemy_militia_pressed)
 
 func _init_defaults() -> void:
 	_update_ui()
@@ -74,6 +76,13 @@ func _on_create_army_pressed() -> void:
 func _on_add_militia_pressed() -> void:
 	if army:
 		var militia = UnitFactory.create_unit("Militia")
+		army.add_unit(militia)
+		_update_ui()
+
+
+func _on_add_enemy_militia_pressed() -> void:
+	if army:
+		var militia = UnitFactory.create_unit("Militia", Defs.Allegiance.UNIT_ENEMY)
 		army.add_unit(militia)
 		_update_ui()
 
@@ -102,9 +111,21 @@ func _create_unit_list_roster() -> void:
 		i += 1
 
 
-func _on_board_unit_placed(unit: Unit, tile: Tile) -> void:
+func _on_board_unit_placed(_unit: Unit, _tile: Tile) -> void:
 	_update_ui()
 
 
-func _on_board_unit_removed(unit: Unit) -> void:
+func _on_board_unit_removed(_unit: Unit) -> void:
 	_update_ui()
+
+
+func _on_battle_manager_battle_state_changed(new_state: Defs.BattleState) -> void:
+	match new_state:
+		Defs.BattleState.SETUP:
+			pass
+		Defs.BattleState.RUNNING:
+			create_army_button.queue_free()
+			add_militia_button.queue_free()
+			add_enemy_militia_button.queue_free()
+		Defs.BattleState.FINISHED:
+			pass

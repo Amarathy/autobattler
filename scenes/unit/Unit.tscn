@@ -12,11 +12,28 @@ script = ExtResource("1_wvgsn")
 
 [node name="Area2D" type="Area2D" parent="."]
 
+[node name="AlligienceBorder" type="ColorRect" parent="Area2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_j3qph")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("RectangleShape2D_8ap23")
+
+[node name="ActionCooldown" type="Timer" parent="."]
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
